@@ -1,13 +1,17 @@
 import { Input } from "@chakra-ui/react";
 import { useState } from "react";
 
-export default function ComponentInput() {
+export default function ComponentInput({ onSubmit }) {
   const [newTodo, setNewTodo] = useState("");
+
   function handleSubmit(e) {
-    e.preventDefault();
-    console.log("hola");
-    setNewTodo("");
+    if (newTodo != "") {
+      e.preventDefault();
+      onSubmit(newTodo);
+      setNewTodo("");
+    }
   }
+
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -16,7 +20,6 @@ export default function ComponentInput() {
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
         />
-        {newTodo}
       </form>
     </>
   );
